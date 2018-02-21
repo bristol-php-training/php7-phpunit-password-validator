@@ -1,0 +1,16 @@
+{
+  "name" : "bristol-php-training/sample-phpunit-setup",
+  "description": "Sample setup for PHPUnit training",
+  "license" : "MIT",
+  "require": {
+    "php": ">=7.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "BristolPhpTraining\\" : "src/"
+    }
+  }
+}
