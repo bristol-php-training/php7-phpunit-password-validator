@@ -32,7 +32,11 @@ class PasswordValidatorTest extends TestCase
 
     public function testValidPassword(): void
     {
-        $this->passwordStrengthCalculatorMock->method('getPasswordStrength')->willReturn(4);
+        $this->passwordStrengthCalculatorMock
+            ->expects($this->once())
+            ->method('getPasswordStrength')
+            ->with($this->equalTo(self::PASSW0RD))
+            ->willReturn(4);
         $this->assertTrue($this->passwordValidator->isValid(self::PASSW0RD));
     }
 
@@ -53,7 +57,11 @@ class PasswordValidatorTest extends TestCase
      */
     public function testInvalidPassword(string $password): void
     {
-        $this->passwordStrengthCalculatorMock->method('getPasswordStrength')->willReturn(4);
+        $this->passwordStrengthCalculatorMock
+            ->expects($this->once())
+            ->method('getPasswordStrength')
+            ->with($this->equalTo($password))
+            ->willReturn(4);
         $this->assertFalse($this->passwordValidator->isValid($password));
     }
 
@@ -61,7 +69,9 @@ class PasswordValidatorTest extends TestCase
     public function testWeakPassword(): void
     {
         $this->passwordStrengthCalculatorMock
+            ->expects($this->once())
             ->method('getPasswordStrength')
+            ->with($this->equalTo(self::PASSW0RD))
             ->willReturn(3);
 
         $this->assertFalse($this->passwordValidator->isValid(self::PASSW0RD));
