@@ -20,7 +20,7 @@ vagrant up
 vagrant ssh
 ```
 
-This will provision a VM running Ubuntu 17.10. It will install PHP 7.1 and composer. Finally it will run composer.
+This will provision a VM running Ubuntu 18.04. It will install PHP 7.2 and composer. Finally it will run composer.
 
 Once logged into the VM run PHPUnit:
 
@@ -51,7 +51,7 @@ The important bit is the `OK (1 test, 1 assertion)`. If you see that then you've
 #### Local
 Install the following:
 
-- PHP 7.0 or higher
+- PHP 7.2 or higher
 - [Composer](https://getcomposer.org/) 
 
 
