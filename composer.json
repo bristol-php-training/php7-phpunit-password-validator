@@ -3,7 +3,7 @@
   "description": "Sample setup for PHPUnit training",
   "license" : "MIT",
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.2"
   },
   "require-dev": {
     "phpunit/phpunit": "^7.0"
