@@ -17,7 +17,8 @@ class PasswordValidator
      * - contains 1 digit
      * - contains 1 lower case letter
      * - contains 1 upper case letter
-     *
+     * - not a previous password
+     * 
      * @param string $password
      * @return bool
      */
