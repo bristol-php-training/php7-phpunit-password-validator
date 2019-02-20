@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class PasswordValidatorTest extends TestCase
 {
+    const PASSW0RD = 'Passw0rd';
 
     /**
      * @var PasswordStrengthCalculatorInterface|MockObject $passwordStrengthCalculatorMock
@@ -31,7 +32,8 @@ class PasswordValidatorTest extends TestCase
 
     public function testValidPassword(): void
     {
-        $this->assertTrue($this->passwordValidator->isValid('Passw0rd'));
+        $this->passwordStrengthCalculatorMock->method('getPasswordStrength')->willReturn(4);
+        $this->assertTrue($this->passwordValidator->isValid(self::PASSW0RD));
     }
 
 
@@ -51,6 +53,18 @@ class PasswordValidatorTest extends TestCase
      */
     public function testInvalidPassword(string $password): void
     {
+        $this->passwordStrengthCalculatorMock->method('getPasswordStrength')->willReturn(4);
         $this->assertFalse($this->passwordValidator->isValid($password));
     }
+
+
+    public function testWeakPassword(): void
+    {
+        $this->passwordStrengthCalculatorMock
+            ->method('getPasswordStrength')
+            ->willReturn(3);
+
+        $this->assertFalse($this->passwordValidator->isValid(self::PASSW0RD));
+    }
+
 }
