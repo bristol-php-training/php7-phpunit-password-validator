@@ -23,6 +23,22 @@ class PasswordValidator
      */
     public function isValid(string $password): bool
     {
+        if (strlen($password) < 8) {
+            return false;
+        }
+
+        if (preg_match('/[0-9]/', $password) !== 1) {
+            return false;
+        }
+
+        if (preg_match('/[a-z]/', $password) !== 1) {
+            return false;
+        }
+
+        if (preg_match('/[A-Z]/', $password) !== 1) {
+            return false;
+        }
+
         return true;
     }
 

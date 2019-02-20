@@ -11,12 +11,30 @@ use PHPUnit\Framework\TestCase;
 class PasswordValidatorTest extends TestCase
 {
 
-    /**
-     * Dummy test. Only here to check that everything is setup and working. Replace this with a real test once ready.
-     */
-    public function testDummy()
+    public function testValidPassord(): void
     {
         $passwordValidator = new PasswordValidator();
-        $this->assertTrue($passwordValidator->isValid("a string"));
+        $this->assertTrue($passwordValidator->isValid('Passw0rd'));
+    }
+
+
+    public function invalidPasswordProvider(): array
+    {
+        return [
+            'tooShort' => ['Passw0r'],
+            'noDigits' => ['Password'],
+            'noLowerCase' => ['PASSW0RD'],
+            'noUpperCase' => ['passw0rd'],
+        ];
+    }
+
+
+    /**
+     * @dataProvider invalidPasswordProvider
+     */
+    public function testInvalidPassword(string $password): void
+    {
+        $passwordValidator = new PasswordValidator();
+        $this->assertFalse($passwordValidator->isValid($password));
     }
 }
