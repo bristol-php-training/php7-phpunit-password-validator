@@ -6,6 +6,8 @@ declare(strict_types=1);
 namespace BristolPhpTraining\PasswordValidator;
 
 
+use BristolPhpTraining\PreviousPasswordChecker\User;
+
 class PasswordValidator
 {
 
@@ -22,7 +24,7 @@ class PasswordValidator
      * @param string $password
      * @return bool
      */
-    public function isValid(string $password): bool
+    public function isValid(User $user, string $password): bool
     {
         if (strlen($password) < 8) {
             return false;
