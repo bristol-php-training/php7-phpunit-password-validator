@@ -13,8 +13,10 @@ class PasswordValidatorTest extends TestCase
 
     public function testValidPassord(): void
     {
-        $passwordValidator = new PasswordValidator();
+        $passwordStrengthCalculatorMock = new PasswordStrengthCalculatorMock('Passw0rd', 4);
+        $passwordValidator = new PasswordValidator($passwordStrengthCalculatorMock);
         $this->assertTrue($passwordValidator->isValid('Passw0rd'));
+        $this->assertEquals(1, $passwordStrengthCalculatorMock->getTotalCalls());
     }
 
 
@@ -34,7 +36,16 @@ class PasswordValidatorTest extends TestCase
      */
     public function testInvalidPassword(string $password): void
     {
-        $passwordValidator = new PasswordValidator();
+        $passwordValidator = new PasswordValidator(new PasswordStrengthCalculatorMock($password, 4));
         $this->assertFalse($passwordValidator->isValid($password));
+    }
+
+
+    public function testValidPasswordNotStrongEnough(): void
+    {
+        $passwordStrengthCalculatorMock = new PasswordStrengthCalculatorMock('Passw0rd', 3);
+        $passwordValidator = new PasswordValidator($passwordStrengthCalculatorMock);
+        $this->assertFalse($passwordValidator->isValid('Passw0rd'));
+        $this->assertEquals(1, $passwordStrengthCalculatorMock->getTotalCalls());
     }
 }
