@@ -12,5 +12,10 @@
     "psr-4": {
       "BristolPhpTraining\\" : "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "BristolPhpTraining\\Test\\" : "test/"
+    }
   }
 }
