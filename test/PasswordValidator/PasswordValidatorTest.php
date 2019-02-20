@@ -58,9 +58,7 @@ class PasswordValidatorTest extends TestCase
     public function testInvalidPassword(string $password): void
     {
         $this->passwordStrengthCalculatorMock
-            ->expects($this->once())
             ->method('getPasswordStrength')
-            ->with($this->equalTo($password))
             ->willReturn(4);
         $this->assertFalse($this->passwordValidator->isValid($password));
     }
