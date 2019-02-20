@@ -38,10 +38,6 @@ class PasswordValidator
      */
     public function isValid(string $password): bool
     {
-        if ($this->passwordStrengthCalculator->getPasswordStrength($password) <= 3) {
-            return false;
-        }
-
         if (strlen($password) < 8) {
             return false;
         }
@@ -55,6 +51,10 @@ class PasswordValidator
         }
 
         if (preg_match('/[A-Z]/', $password) !== 1) {
+            return false;
+        }
+
+        if ($this->passwordStrengthCalculator->getPasswordStrength($password) <= 3) {
             return false;
         }
 
