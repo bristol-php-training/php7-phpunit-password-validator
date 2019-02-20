@@ -6,8 +6,23 @@ declare(strict_types=1);
 namespace BristolPhpTraining\PasswordValidator;
 
 
+use BristolPhpTraining\PasswordStrengthCalculator\PasswordStrengthCalculatorInterface;
+
 class PasswordValidator
 {
+    /**
+     * @var PasswordStrengthCalculatorInterface
+     */
+    private $passwordStrengthCalculator;
+
+    /**
+     * PasswordValidator constructor.
+     * @param PasswordStrengthCalculatorInterface $passwordStrengthCalculator
+     */
+    public function __construct(PasswordStrengthCalculatorInterface $passwordStrengthCalculator)
+    {
+        $this->passwordStrengthCalculator = $passwordStrengthCalculator;
+    }
 
     /**
      * Returns true if password supplied is a valid password.

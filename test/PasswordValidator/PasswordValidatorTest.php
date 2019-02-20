@@ -5,16 +5,33 @@ declare(strict_types=1);
 
 namespace BristolPhpTraining\Test\PasswordValidator;
 
+use BristolPhpTraining\PasswordStrengthCalculator\PasswordStrengthCalculatorInterface;
 use BristolPhpTraining\PasswordValidator\PasswordValidator;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class PasswordValidatorTest extends TestCase
 {
 
-    public function testValidPassord(): void
+    /**
+     * @var PasswordStrengthCalculatorInterface|MockObject $passwordStrengthCalculatorMock
+     */
+    private $passwordStrengthCalculatorMock;
+
+    /**
+     * @var PasswordValidator
+     */
+    private $passwordValidator;
+
+    protected function setUp(): void
     {
-        $passwordValidator = new PasswordValidator();
-        $this->assertTrue($passwordValidator->isValid('Passw0rd'));
+        $this->passwordStrengthCalculatorMock = $this->getMockBuilder(PasswordStrengthCalculatorInterface::class)->getMock();
+        $this->passwordValidator = new PasswordValidator($this->passwordStrengthCalculatorMock);
+    }
+
+    public function testValidPassword(): void
+    {
+        $this->assertTrue($this->passwordValidator->isValid('Passw0rd'));
     }
 
 
@@ -34,7 +51,6 @@ class PasswordValidatorTest extends TestCase
      */
     public function testInvalidPassword(string $password): void
     {
-        $passwordValidator = new PasswordValidator();
-        $this->assertFalse($passwordValidator->isValid($password));
+        $this->assertFalse($this->passwordValidator->isValid($password));
     }
 }
